@@ -1,0 +1,101 @@
+.grid-container {
+  margin: 20px;
+}
+
+.product-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.product-card-row
+{
+  height: fit-content;
+}
+
+.product-title
+{
+  font-size: 2.5em;
+  color: #673ab7;
+
+}
+
+.product-barcode
+{
+  font-size: 1.15em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  color: #ffd740;
+  margin-left: 16px;
+}
+
+.product-price
+{
+  font-size: 2.5em;
+  margin-top: 1em!important;
+  margin-bottom: 1em!important;
+  color: #673ab7;
+}
+
+.product-quantity
+{
+  font-size: 1.15em;
+}
+
+.product-info-row
+{
+  margin-left: 16px;
+}
+
+.product-add
+{
+  display: inline-flex;
+  flex-direction: row;
+  margin-right: 1.5em;
+}
+.product-add-quantity
+{
+  width: 3em;
+  text-align: right;
+}
+
+
+.product-add-quantity::-webkit-outer-spin-button,
+.product-add-quantity::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+
+
+.product-add-quantity {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.product-add-minus, .product-add-plus
+{
+  width: 2em;
+}
+
+.product-info-container
+{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.product-image-container
+{
+  background-image: url("https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png");
+}
+
+.tab-label-header
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+

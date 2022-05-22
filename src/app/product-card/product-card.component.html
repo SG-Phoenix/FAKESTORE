@@ -1,0 +1,19 @@
+<mat-card class="product-card"*ngIf="product">
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" class="product-card-img" routerLink="/products/{{product.id}}">
+    <mat-card-content>
+      <div style="display: flex; flex-direction:column; justify-content:center">
+        <span class="product-card-title" routerLink="/products/{{product.id}}">{{product.name}}</span>
+        <span class="product-card-price">{{product.price | currency:'EUR'}}</span>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="product-card-buy">
+      <div class="product-card-buy" *ngIf="product.quantity">
+        <div class="product-add">
+          <button color="primary" class="product-add-minus" style="width : 2em;" (click)="remove()">-</button>
+          <input type="number" class="product-add-quantity" [(ngModel)]="quantity" >
+          <button  color="primary" class="product-add-plus" style="width : 2em;" (click)="add()">+</button>
+        </div>
+        <button mat-raised-button color="primary" (click)="addToCart()"><mat-icon>shopping_cart</mat-icon></button>
+      </div>
+    </mat-card-actions>
+</mat-card>

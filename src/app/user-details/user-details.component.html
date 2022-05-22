@@ -1,0 +1,30 @@
+<h3>User details:</h3>
+<div *ngIf="user">
+    <div>id: {{user.id}}</div>
+    <div>username: {{user.username}}</div>
+
+    <div>
+      <label for="user-details-mail">e-mail:</label>
+      <input type="text" [(ngModel)]="user.e_mail" id="user-details-mail" placeholder="email@domain.com">
+    </div>
+
+    <div>
+      <label for="user-details-first-name">nome: </label>
+      <input type="text" id="user-details-first-name" [(ngModel)]="user.first_name" placeholder="Mario">
+    </div>
+
+    <div>
+      <label for="user-details-last-name">cognome: </label>
+      <input type="text" id="user-details-last-name" [(ngModel)]="user.last_name" placeholder="Rossi">
+    </div>
+
+  <button (click)="updateUser()">Update user</button>
+
+  <div *ngIf="userProducts" >
+    <h2>List of user products: </h2>
+    <div *ngFor="let product of userProducts" class="user-details-products">
+        <button><a routerLink='/products/{{product.id}}'>{{product.name}}</a></button>
+    </div>
+  </div>
+
+</div>

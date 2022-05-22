@@ -1,0 +1,39 @@
+<div style="background-color: white;">
+  <mat-grid-list cols="6" rowHeight="fit" [style.height]="'90vh'" style="overflow: hidden">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+
+
+      <div class="product-filter-container" (change)="reloadResults()" >
+
+        <!-- Price filter -->
+        <div class="product-filter">
+          <p class="product-filter-title">Prezzo</p>
+          <div class="product-filter-component">
+            <input matInput  type="number" name="minPrice" id="minPrice" min="0" value="0" #minPrice [(ngModel)]="queryParams.minPrice" placeholder="Da:" >
+          </div >
+          <div class="product-filter-component">
+           <input matInput  type="number" name="maxPrice" id="maxPrice" min="0" value="0" [(ngModel)]="queryParams.maxPrice" placeholder="A:" >
+         </div>
+        </div>
+
+        <!-- Category filter -->
+        <div class="product-filter" >
+          <p class="product-filter-title">Categoria</p>
+          <div class="product-filter-component" *ngFor="let category of categoryList">
+           <mat-checkbox value="" color="primary" [(ngModel)]="category.checked" (change)="reloadResults()">{{category.name}}</mat-checkbox>
+
+          </div>
+        </div>
+
+      </div>
+
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="5" [rowspan]="2" >
+    <div class="product-content">
+        <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+    </div>
+    </mat-grid-tile>
+
+</mat-grid-list>
+
+</div>

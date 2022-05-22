@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()" *ngIf="isMobile$ | async">menu</mat-icon>
+    </button>
+    <h1 class="toolbar-store-name" routerLink="/">{{storeName}}</h1>
+    <span class="menu-spacer"></span>
+    <div class="toolbar-content">
+      <div class="toolbar-search-container">
+        <input class="toolbar-search" type="text" placeholder="Search" (keyup.enter)="search(searchString)" [(ngModel)]="searchString">
+        <button matSuffix mat-icon-button (click)="search(searchString)">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+      <button matSuffix mat-icon-button>
+        <mat-icon>person</mat-icon>
+      </button>
+      <button routerLink="/shopping_cart" matSuffix mat-icon-button [matBadge]="productsCount" matBadgePosition="after" matBadgeColor="accent" matBadgeOverlap="true" matBadgeSize="small">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="!(isMobile$ | async)" >
+  <div class="toolbar-menu" *ngFor="let category of productCategories">
+    <a mat-button [routerLink]="'/search'" [queryParams]="{category: category.name}"> {{category.name}} </a>
+  </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav [mode]="'over'">
+    <mat-nav-list *ngFor="let category of productCategories">
+      <a mat-button [routerLink]="'/search'" [queryParams]="{category: category.name}"> {{category.name}} </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: fit-content; box-sizing: border-box;">
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
