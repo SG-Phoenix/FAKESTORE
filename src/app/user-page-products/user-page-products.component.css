@@ -1,0 +1,11 @@
+.user-info-title
+{
+  font-size: 1.5em;
+  border-bottom: 1px solid #ced4da;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

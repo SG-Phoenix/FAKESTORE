@@ -1,0 +1,51 @@
+<div class="user-info-title">
+  <span>Aggiungi indirizzo</span>
+</div>
+
+<div class="user-info-general">
+  <form [formGroup]="productForm" class="user-info-form" (ngSubmit)="updateProduct(productForm.value)">
+
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input matInput placeholder="Esempio" formControlName="name" required>
+    </mat-form-field>
+
+
+    <mat-form-field >
+      <mat-label>Barcode</mat-label>
+      <input matInput placeholder="800000000" formControlName="barcode" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Prezzo</mat-label>
+      <input matInput placeholder="100,00" formControlName="price" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Quantità</mat-label>
+      <input matInput placeholder="1" formControlName="quantity" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Brand</mat-label>
+      <input matInput placeholder="Dell" formControlName="brand">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Categoria</mat-label>
+      <mat-select formControlName="category" required>
+        <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Descrizione</mat-label>
+      <textarea matInput placeholder="Lorem ipsum..." formControlName="description"></textarea>
+    </mat-form-field>
+
+
+    <button [disabled]="!productForm.valid" color="primary" mat-raised-button>
+      Salva
+    </button>
+  </form>
+</div>

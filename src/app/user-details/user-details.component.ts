@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
-import { UserService } from '../user.service';
-import { User } from '../user';
+import { UserService } from '../service/user.service';
+import { User } from '../model/user';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { ProductService } from '../product.service';
-import { Product } from '../product';
+import { ProductService } from '../service/product.service';
+import { Product } from '../model/product';
 
 @Component({
   selector: 'app-user-details',
@@ -47,8 +47,13 @@ export class UserDetailsComponent implements OnInit {
   getUserProducts()
   {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getUserProducts(id)
-      .subscribe(products => this.userProducts = products);
+    let options
+    {
+      page:0
+      pageSize:5
+    }
+    this.productService.getUserProducts(id,options)
+      .subscribe(products => this.userProducts = products.content);
   }
 
   goBack(): void {

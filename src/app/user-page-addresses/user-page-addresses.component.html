@@ -1,0 +1,21 @@
+<div class="user-info-title">
+  <span>I miei indirizzi</span>
+  <button mat-button routerLink="/user/addresses/add">Aggiungi</button>
+</div>
+
+<div class="user-info-general">
+  <div class="cart-address-container">
+    <mat-card *ngFor="let address of addressList">
+        <mat-card-content>
+          <div class="cart-address-content">
+            <span  class="cart-address-title">{{address.title}}</span>
+            <span>{{address.street}}</span>
+            <span>{{address.city}}, {{address.postalCode}}</span>
+            <span>{{address.country}}</span>
+          </div>
+          <button mat-button routerLink="/user/addresses/{{address.id}}">Modifica</button>
+          <button mat-button (click)="deleteAddress(address)">Elimina</button>
+        </mat-card-content>
+    </mat-card>
+  </div>
+</div>

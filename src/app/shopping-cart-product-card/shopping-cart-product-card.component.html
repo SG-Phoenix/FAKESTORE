@@ -1,0 +1,25 @@
+<div class="cart-product" *ngIf="cartProduct">
+  <mat-card  class="cart-product" >
+
+      <mat-card-content>
+        <div class="cart-product-content">
+          <div class="cart-product-content-title" routerLink="/products/{{cartProduct.product.id}}">
+              {{cartProduct.product.name}}
+          </div>
+          <div class="cart-product-content-price">
+            {{cartProduct.product.price | currency:"EUR"}}
+          </div>
+          <div class="cart-product-content-quantity">
+            <div class="product-add">
+              <button color="primary" class="product-add-minus" style="width : 2em;" (click)="removeProduct(cartProduct.product)">-</button>
+              <input type="number" class="product-add-quantity" [ngModel]="cartProduct.quantity" (ngModelChange)="changeProduct(cartProduct.product, $event)">
+              <button  color="primary" class="product-add-plus" style="width : 2em;" (click)="addProduct(cartProduct.product)">+</button>
+            </div>
+          </div>
+          <div class="cart-product-remove">
+            <button color="primary" mat-button (click)="deleteProduct(cartProduct.product)">Remove</button>
+          </div>
+        </div>
+      </mat-card-content>
+  </mat-card>
+</div>

@@ -1,15 +1,22 @@
+import { Category } from './../model/category';
+import { MatListModule, MatListOption, MatSelectionListChange } from '@angular/material/list';
 import { FormGroup, FormsModule } from '@angular/forms';
-import { Category } from './../category';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, EventEmitter, Query } from '@angular/core';
-import { ProductService } from '../product.service';
-import { Product } from '../product';
+import { ProductService } from '../service/product.service';
+import { Product } from '../model/product';
+import { PageEvent } from '@angular/material/paginator';
 
-class QueryParams
-{
-    minPrice?:number=0;
-    maxPrice?:number=Infinity;
-    category?:string;
+interface QueryParams {
+  pageSize:number;
+  page:number;
+  minPrice?:number;
+  maxPrice?:number;
+  category?:string;
+}
+interface CategoryParams {
+  category: string;
+  checked: boolean;
 }
 
 @Component({
@@ -23,63 +30,153 @@ export class SearchComponent implements OnInit {
   private paramsChange: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    private productService:ProductService,
-    private activatedRoute:ActivatedRoute,
+    private productService: ProductService,
+    private activatedRoute: ActivatedRoute,
     private router: Router
-    ) { }
+  ) {
+      this.page=0;
+      this.pageSize=5;
+      this.productsNumber=0;
+      this.pagesNumber=0;
+      this.searchString="";
+      this.productService.getCategories().subscribe(
+        categories => {
+          categories.forEach(category => {
+            this.categoryList.push({ category: category.name, checked: this.selectedCategories.indexOf(category.name) !== -1 });
+        });
+      }
+    );
 
-  products?:Product[];
+    this.activatedRoute.queryParamMap.subscribe(
+      params => {
+        this.selectedCategories = params.getAll("category");
+        this.categoryList.forEach(categoryParam =>
+          {
+              var foundCategory = this.selectedCategories.find(selectedCategory => categoryParam.category===selectedCategory);
+              if(foundCategory)
+                categoryParam.checked=true;
+              else
+                categoryParam.checked=false;
+          }
+          );
+        if(params.get("minPrice"))
+          this.minPrice = parseInt(params.get("minPrice") || "");
+        if(params.get("maxPrice"))
+          this.maxPrice = parseInt(params.get("maxPrice") || "");
 
-  queryParams:QueryParams = {
+        this.searchString = params.get("name") || "";
 
-  };
+        if(params.get("page"))
+          this.page = parseInt(params.get("page") || "0");
+        if(params.get("page"))
+          this.pageSize = parseInt(params.get("pageSize") || "5");
 
+        this.getProducts();
+        //this.reloadResults();
+      }
+    )
 
-  categoryList?:any[];
-
-  ngOnInit(): void {
-    this.getCategories();
-    this.updateQueryParams();
   }
 
+  products?: Product[];
 
-  getProducts(params:Object)
+  categoryList: CategoryParams[] = [];
+  selectedCategories: string[] = [];
+  page:number;
+  pageSize:number;
+  productsNumber:number;
+  pagesNumber:number;
+  minPrice?: number;
+  maxPrice?: number;
+  searchString:string;
+
+
+  ngOnInit(): void {
+
+  }
+
+  changeCategories(list: MatListOption[]) {
+    var selected = list.map(o => o.value);
+    console.log(selected);
+    this.selectedCategories = selected;
+    this.changeResults();
+  }
+
+  changePrice() {
+    this.changeResults()
+  }
+
+  changePage(event:PageEvent)
   {
-    this.productService.getFilteredProducts(params).subscribe(
-      products => {this.products = products;console.log("prodotti caricati");console.log(products)}
+    this.page=event.pageIndex;
+    this.pageSize=event.pageSize;
+    this.changePageResults();
+  }
+
+  private changeResults() {
+    var options =
+    {
+      name: this.searchString,
+      category: this.selectedCategories,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice,
+      page: 0,
+      pageSize: this.pageSize
+    }
+    this.router.navigate([],
+      {
+        queryParams: options,
+        queryParamsHandling: "merge"
+      }
     );
   }
 
-  updateQueryParams()
-  {
-    this.activatedRoute.queryParams.subscribe( params =>
+  private changePageResults() {
+    var options =
+    {
+      name: this.searchString,
+      category: this.selectedCategories,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice,
+      page: this.page,
+      pageSize: this.pageSize
+    }
+    this.router.navigate([],
       {
-          this.queryParams=Object.assign({}, params);
-          this.getProducts(this.queryParams);
-          console.log(this.queryParams)
-      })
+        queryParams: options,
+        queryParamsHandling: "merge"
+      }
+    );
   }
 
-  reloadResults()
+  getProducts()
   {
+    var options =
+    {
+      name: this.searchString,
+      category: this.selectedCategories,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice,
+      page:this.page,
+      pageSize:this.pageSize
+    }
 
-      let categories = "";
-      this.categoryList?.forEach(category => {if (category.checked) categories+=category.name+","})
-      categories = categories.slice(0, -1);
-      if(categories)
-        this.queryParams.category=categories;
-      else
-        delete this.queryParams.category;
-      console.log(this.queryParams);
-      this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams: this.queryParams
-    });
+    if(!this.minPrice)
+      delete options.minPrice;
+
+    if(!this.maxPrice)
+      delete options.maxPrice;
+
+    this.productService.getFilteredProducts(options)
+    .subscribe(
+      productPage =>
+      {
+        this.products = productPage.content;
+        this.productsNumber = productPage.totalElements;
+        this.pagesNumber = productPage.totalPages;
+      });
+
   }
 
-  getCategories()
-  {
-      this.productService.getCategories().subscribe(categories => this.categoryList=categories);
-  }
 
 }

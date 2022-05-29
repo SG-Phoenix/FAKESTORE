@@ -27,7 +27,6 @@
   font-size: 1.15em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  color: #ffd740;
   margin-left: 16px;
 }
 
@@ -67,6 +66,16 @@
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.product-add-minus, .product-add-plus
+{
+  width: 2em;
+  background-color:  #6f42c1;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  height:36px;
 }
 
 

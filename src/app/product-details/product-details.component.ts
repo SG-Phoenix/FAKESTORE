@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../product';
+import { Product } from '../model/product';
 import { Input } from '@angular/core';
-import { ProductService } from '../product.service';
+import { ProductService } from '../service/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map, shareReplay} from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { OrderService } from '../order.service';
+import { OrderService } from '../service/order.service';
 
 @Component({
   selector: 'app-product-details',

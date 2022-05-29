@@ -12,30 +12,65 @@
           <mat-icon>search</mat-icon>
         </button>
       </div>
-      <button matSuffix mat-icon-button>
+
+      <button matSuffix mat-icon-button [matMenuTriggerFor]="menu" *ngIf="!(isMobile$ | async)">
         <mat-icon>person</mat-icon>
       </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="main-menu-button" [routerLink]="item.route" *ngFor="let item of menuItems">
+          <mat-icon>{{item.icon}}</mat-icon>
+          <span>{{item.text}}</span>
+        </button>
+        <button mat-menu-item class="main-menu-button">
+          <mat-icon>no_meeting_room</mat-icon>
+          <span>Esci</span>
+        </button>
+      </mat-menu>
+
       <button routerLink="/shopping_cart" matSuffix mat-icon-button [matBadge]="productsCount" matBadgePosition="after" matBadgeColor="accent" matBadgeOverlap="true" matBadgeSize="small">
         <mat-icon>shopping_cart</mat-icon>
       </button>
     </div>
   </mat-toolbar-row>
   <mat-toolbar-row *ngIf="!(isMobile$ | async)" >
-  <div class="toolbar-menu" *ngFor="let category of productCategories">
-    <a mat-button [routerLink]="'/search'" [queryParams]="{category: category.name}"> {{category.name}} </a>
+  <div class="toolbar-menu" *ngFor="let category of productCategories" >
+    <a mat-button  (click)="searchByCategory(category.name)"> {{category.name}} </a>
   </div>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="'over'">
-    <mat-nav-list *ngFor="let category of productCategories">
-      <a mat-button [routerLink]="'/search'" [queryParams]="{category: category.name}"> {{category.name}} </a>
+
+  <mat-expansion-panel style="width: 100%;">
+    <mat-expansion-panel-header>
+      Account
+    </mat-expansion-panel-header>
+    <mat-nav-list *ngFor="let item of menuItems">
+        <mat-list-item [routerLink]="item.route"> <mat-icon>{{item.icon}}</mat-icon> {{item.text}} </mat-list-item>
     </mat-nav-list>
+    <mat-nav-list>
+      <mat-list-item> <mat-icon></mat-icon> Esci</mat-list-item>
+  </mat-nav-list>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Categorie
+    </mat-expansion-panel-header>
+    <mat-nav-list *ngFor="let category of productCategories">
+      <a mat-button (click)="searchByCategory(category.name)"> {{category.name}} </a>
+    </mat-nav-list>
+  </mat-expansion-panel>
+
+
+
   </mat-sidenav>
   <mat-sidenav-content>
-    <div style="height: fit-content; box-sizing: border-box;">
+    <div style="min-height: 80vh;background-color: white;padding: 0 10%;">
       <ng-content></ng-content>
     </div>
+
   </mat-sidenav-content>
 </mat-sidenav-container>

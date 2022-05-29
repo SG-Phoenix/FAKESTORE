@@ -1,39 +1,48 @@
-<div style="background-color: white;">
-  <mat-grid-list cols="6" rowHeight="fit" [style.height]="'90vh'" style="overflow: hidden">
-    <mat-grid-tile [colspan]="1" [rowspan]="2">
+<div class="search-grid">
 
+  <div class="search-grid-filter">
+    <div class="product-filter-container" >
 
-      <div class="product-filter-container" (change)="reloadResults()" >
-
-        <!-- Price filter -->
-        <div class="product-filter">
-          <p class="product-filter-title">Prezzo</p>
-          <div class="product-filter-component">
-            <input matInput  type="number" name="minPrice" id="minPrice" min="0" value="0" #minPrice [(ngModel)]="queryParams.minPrice" placeholder="Da:" >
-          </div >
-          <div class="product-filter-component">
-           <input matInput  type="number" name="maxPrice" id="maxPrice" min="0" value="0" [(ngModel)]="queryParams.maxPrice" placeholder="A:" >
-         </div>
-        </div>
-
-        <!-- Category filter -->
-        <div class="product-filter" >
-          <p class="product-filter-title">Categoria</p>
-          <div class="product-filter-component" *ngFor="let category of categoryList">
-           <mat-checkbox value="" color="primary" [(ngModel)]="category.checked" (change)="reloadResults()">{{category.name}}</mat-checkbox>
-
-          </div>
-        </div>
-
+      <!-- Price filter -->
+      <div class="product-filter" (change)="changePrice()">
+        <p class="product-filter-title">Prezzo</p>
+        <div class="product-filter-component" >
+          <input type="number" name="minPrice" id="minPrice" min="0" value="0" [(ngModel)]="minPrice" placeholder="Da:" >
+        </div >
+        <div class="product-filter-component">
+         <input type="number" name="maxPrice" id="maxPrice" min="0" value="0" [(ngModel)]="maxPrice"  placeholder="A:" >
+       </div>
+      </div>
+      <!-- Category filter -->
+      <div class="product-filter" >
+        <p class="product-filter-title">Categoria</p>
+          <mat-selection-list #categoryViewList (selectionChange)="changeCategories(categoryViewList.selectedOptions.selected)">
+            <mat-list-option class="product-filter-component" [color]="'primary'" [checkboxPosition]="'before'" *ngFor="let categoryParam of categoryList" [value]="categoryParam.category" [(selected)]="categoryParam.checked" >
+              {{categoryParam.category}}
+            </mat-list-option>
+          </mat-selection-list>
       </div>
 
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="5" [rowspan]="2" >
-    <div class="product-content">
-        <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
     </div>
-    </mat-grid-tile>
+  </div>
 
-</mat-grid-list>
+  <div class="search-grid-content">
+    <div class="product-content-paginator-container">
+      <div class="product-content-paginator">
+        <mat-paginator [length]="productsNumber"
+        [pageSize]="pageSize"
+        [pageIndex]="page"
+        [pageSizeOptions] = "[5, 10, 25, 100]"
+        (page)="changePage($event)"
+        >
+        </mat-paginator>
+      </div>
+      <div class="product-content">
+        <app-test-product-card *ngFor="let product of products" [product]="product" [quantity]="1"></app-test-product-card>
+    </div>
+    </div>
+  </div>
 
 </div>
+
+

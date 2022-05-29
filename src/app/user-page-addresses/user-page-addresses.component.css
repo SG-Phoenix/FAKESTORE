@@ -1,0 +1,50 @@
+.user-info-form
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info-general
+{
+  padding: 2em;
+
+}
+.user-info-form
+{
+  width: 50%;
+  gap: 1em;
+}
+.user-info-title
+{
+  font-size: 1.5em;
+  border-bottom: 1px solid #ced4da;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cart-address-container
+{
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 2em 0;
+  gap: 1em;
+}
+
+.cart-address-content
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-address-title
+{
+  font-weight: 500;
+  font-size: 1.2em;
+}

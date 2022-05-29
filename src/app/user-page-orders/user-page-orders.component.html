@@ -1,0 +1,31 @@
+
+<div>
+  <mat-paginator [length]="length"
+        [pageSize]="pageSize"
+        [pageIndex]="page"
+        [pageSizeOptions] = "[5, 10, 25, 50]"
+        (page)="changeOrderPage($event)"
+
+        >
+        </mat-paginator>
+</div>
+<div>
+  <mat-card  class="order-card" *ngFor="let order of orderList">
+    <mat-card-content>
+      <div class="order-card-content">
+        <div class="order-card-content-title" >
+           <span> Ordine N° {{order.id}}</span>
+
+        </div>
+        <div class="order-card-content-price">
+          {{order.totalPrice | currency:"EUR"}}
+        </div>
+        <div class="order-card-content-details">
+          <button mat-button color="primary" [routerLink]="'./details/'+order.id">Visualizza dettagli</button>
+        </div>
+
+      </div>
+    </mat-card-content>
+</mat-card>
+</div>
+

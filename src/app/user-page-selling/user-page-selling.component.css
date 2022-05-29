@@ -1,0 +1,56 @@
+::ng-deep .selling-card
+{
+  display: flex;
+  flex-direction:row;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+.selling-card-content
+{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 2em;
+  gap: 2em;
+}
+
+.selling-card-general-info
+{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.selling-card-product-info, .selling-card-address-info, .selling-card-product
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.selling-card-product-title, .selling-card-address-title
+{
+  font-weight: 500;
+  font-size: 1.4em;
+  padding-bottom: 0.3em;
+
+}
+
+.selling-card-product
+{
+  margin-top: 0.5em;
+}
+
+.selling-card-product-name
+{
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.selling-card-product-name:hover
+{
+  color: #673ab7;
+  cursor: pointer;
+}
+

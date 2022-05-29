@@ -1,0 +1,17 @@
+<div class="user-info-title">
+  <span>Le mie informazioni</span>
+  <button mat-button routerLink="/user/products/add">Aggiungi prodotto</button>
+</div>
+<div class="product-content-paginator-container">
+  <div class="product-content-paginator">
+    <mat-paginator [length]="length"
+    [pageSize]="pageSize"
+    [pageIndex]="page"
+    [pageSizeOptions] = "[5, 10, 25, 100]"
+    (page)="changePage($event)"
+    >
+    </mat-paginator>
+  </div>
+  <div class="product-content">
+    <app-user-page-product-card *ngFor="let product of products" [product]="product"></app-user-page-product-card>
+</div>

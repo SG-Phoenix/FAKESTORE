@@ -1,0 +1,53 @@
+<div class="order-details-container" *ngIf="order">
+  <div class="order-details-info">
+      <div class="order-details-title">
+        <span>Ordine N° {{order.id}}</span> |
+        <span class="order-details-date">Ordinato il {{order.purchaseTime | date:'medium':'+0100':'it'}}</span>
+
+      </div>
+
+    <div class="order-details-general">
+      <div class="order-details-address">
+
+        <span class="order-details-address-title">Indirizzo di spedizione:</span>
+        <span>{{order.street}}</span>
+        <span>{{order.city}}, {{order.postalCode}}</span>
+        <span>{{order.country}}</span>
+
+      </div>
+
+      <div class="order-details-price">
+        <span class="order-details-price-title">Riepilogo ordine:</span>
+        <div class="order-details-price-calc">
+          <div class="price-row" *ngFor="let productLine of order.products">
+            <div class="price-row-title">
+              <span class="price-row-product">{{productLine.product.name}}</span> x <span class="price-row-quantity">{{productLine.quantity}}</span>
+            </div>
+            <div class="price-row-price">
+              <span class="price-row-price-value">{{productLine.purchasePrice*productLine.quantity | currency:"EUR"}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="total-price-container">
+          <div class="price-row">
+            <div class="price-row-title">
+              <span class="price-row-product">Totale</span>
+            </div>
+            <div class="price-row-price">
+              <span class="price-row-price-value">{{order.totalPrice | currency:"EUR"}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="order-details-products">
+    <div class="order-details-products-title">
+      Prodotti:
+    </div>
+    <app-test-product-card *ngFor="let productLine of order.products" [product]="productLine.product" [displayCartButtons]="false"></app-test-product-card>
+  </div>
+</div>

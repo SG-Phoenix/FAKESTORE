@@ -1,0 +1,39 @@
+<div>
+  <mat-paginator [length]="length"
+        [pageSize]="pageSize"
+        [pageIndex]="page"
+        [pageSizeOptions] = "[5, 10, 25, 50]"
+        (page)="changeSellingPage($event)"
+
+        >
+        </mat-paginator>
+</div>
+
+<div>
+<mat-card  class="selling-card" *ngFor="let selling of userSelling">
+    <mat-card-content style="width: 100%;">
+      <div class="selling-card-content">
+        <div>
+          <span>Ordine N° {{selling.orderId}}</span> |
+          <span>Ordinato il {{selling.orderDate | date:'medium':'':'it'}}</span>
+        </div>
+        <div class="selling-card-general-info">
+        <div class="selling-card-product-info">
+          <div class="selling-card-product">
+            <span class="selling-card-product-title">Prodotto</span>
+            <span class="selling-card-product-name" routerLink="/user/products/deatails/{{selling.product.id}}">{{selling.product.name}}</span>
+            <span>Prezzo di acquisto: {{selling.purchasePrice | currency:'EUR'}}</span>
+            <span>Quantità: {{selling.quantity}}</span>
+          </div>
+        </div>
+        <div class="selling-card-address-info">
+          <span class="selling-card-address-title">Destinazione:</span>
+            <span>{{selling.street}}</span>
+            <span>{{selling.city}}, {{selling.postalCode}}</span>
+            <span>{{selling.country}}</span>
+        </div>
+        </div>
+      </div>
+    </mat-card-content>
+</mat-card>
+</div>

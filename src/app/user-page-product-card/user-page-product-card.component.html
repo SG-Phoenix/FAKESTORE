@@ -1,0 +1,20 @@
+<div class="user-page-product" *ngIf="product">
+  <mat-card  class="user-page-product" >
+      <mat-card-content>
+        <div class="user-page-product-content">
+          <div class="user-page-product-content-title" routerLink="/products/{{product.id}}">
+              {{product.name}}
+          </div>
+          <div class="user-page-product-content-quantity">
+            Quantità rimasta: {{product.quantity}}
+        </div>
+          <div class="user-page-product-content-price">
+            {{product.price | currency:"EUR"}}
+          </div>
+        </div>
+        <div class="user-page-product-button">
+          <button mat-button  routerLink="/user/products/{{product.id}}">Modifica</button>
+        </div>
+      </mat-card-content>
+  </mat-card>
+</div>
