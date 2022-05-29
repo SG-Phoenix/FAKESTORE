@@ -51,6 +51,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { MatSelectModule } from '@angular/material/select';
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { UserPageProductCardComponent } from './user-page-product-card/user-page-product-card.component';
+import { AuthModule } from 'src/auth/auth.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,7 +106,8 @@ import { UserPageProductCardComponent } from './user-page-product-card/user-page
     ReactiveFormsModule,
     MatSnackBarModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

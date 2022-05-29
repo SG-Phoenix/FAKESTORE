@@ -1,3 +1,4 @@
+import { AuthGuard } from 'src/auth/auth.guard';
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { UserPageProductsComponent } from './user-page-products/user-page-products.component';
@@ -29,6 +30,8 @@ const routes: Routes = [
     {path: "search", component: SearchComponent},
     {
       path: "user", component: UserPageComponent,
+      canActivate:[AuthGuard],
+      data: { roles:['user']},
       children:
       [
         {

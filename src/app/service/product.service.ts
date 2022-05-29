@@ -17,7 +17,8 @@ export class ProductService {
   private baseURL = environment.baseURL+"/products";
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "http://localhost:4200"}
+    )
   };
 
   constructor(private http:HttpClient,
@@ -53,7 +54,7 @@ export class ProductService {
 
   getCategories(): Observable<Category[]>
   {
-    return this.http.get<Category[]>(`${this.baseURL}/categories`);
+    return this.http.get<Category[]>(`${this.baseURL}/categories`,{headers: {"Access-Control-Allow-Origin": "http://localhost:4200"}});
   }
 
   getFilteredProducts(queryParams:any): Observable<ProductPage>

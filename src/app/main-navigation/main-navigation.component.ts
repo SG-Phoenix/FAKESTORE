@@ -1,3 +1,4 @@
+import { AuthService } from 'src/auth/service/auth.service';
 import { UserService } from '../service/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
@@ -39,7 +40,8 @@ export class MainNavigationComponent implements OnInit {
               private productService:ProductService,
               private router:Router,
               private activatedRoute:ActivatedRoute,
-              private userService:UserService
+              private userService:UserService,
+              private authService:AuthService
     ) {
       this.user = this.userService.getCurrentUser();
     }
@@ -80,5 +82,10 @@ export class MainNavigationComponent implements OnInit {
             queryParams: {category: name}
           });
     }
+
+  logout()
+  {
+    this.authService.logout();
+  }
 
 }

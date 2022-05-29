@@ -1,7 +1,7 @@
 import { catchError } from 'rxjs/operators';
 import { SellingPage } from './../model/selling-page';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -28,6 +28,11 @@ export class OrderService implements OnInit {
 
   private shopping_cart:Map<Number,ShoppingCartProduct>;
   private baseURL = environment.baseURL+"/orders";
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "http://localhost:4200"}
+    )
+  }
 
   @Output() change: EventEmitter<any> = new EventEmitter();
 

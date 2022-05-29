@@ -2,10 +2,13 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import keycloakConfig from "./keycloak.config";
+
 export const environment = {
   production: false,
   baseURL: "http://localhost:8081",
-  storeName: "FakeEStore"
+  storeName: "FakeEStore",
+  keycloak: keycloakConfig
 };
 
 

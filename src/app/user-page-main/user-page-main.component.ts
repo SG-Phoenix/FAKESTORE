@@ -1,3 +1,4 @@
+import { AuthService } from 'src/auth/service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { User } from '../model/user';
@@ -12,7 +13,10 @@ import { UserPageMenuItem } from '../user-page-menu/user-page-menu-item';
 export class UserPageMainComponent implements OnInit {
 
   menuItems: UserPageMenuItem[];
-  constructor(private userService:UserService)
+  constructor(
+    private userService:UserService,
+    private authService:AuthService
+    )
   {
     this.currentUser = this.userService.getCurrentUser();
     this.menuItems = MENU_ITEMS.filter(item => item.text != "Bacheca");
@@ -23,4 +27,8 @@ export class UserPageMainComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout()
+  {
+    this.authService.logout();
+  }
 }
