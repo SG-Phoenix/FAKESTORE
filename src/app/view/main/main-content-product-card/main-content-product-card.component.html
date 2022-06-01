@@ -1,0 +1,18 @@
+<mat-card *ngIf="product" style="height: 100%;">
+  <mat-card-header>
+      <mat-card-title class="product-title" routerLink="/products/{{product.id}}">{{product.name}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="product-content">
+      <span class="product-content-price">{{product.price | currency:'EUR'}}</span>
+      <div class="product-card-buy" *ngIf="product.quantity">
+        <div class="product-add">
+          <button color="primary" class="product-add-minus" style="width : 2em;" (click)="remove()">-</button>
+          <input type="number" class="product-add-quantity" [(ngModel)]="quantity" >
+          <button  color="primary" class="product-add-plus" style="width : 2em;" (click)="add()">+</button>
+        </div>
+        <button mat-raised-button color="primary" (click)="addToCart()"><mat-icon>shopping_cart</mat-icon></button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

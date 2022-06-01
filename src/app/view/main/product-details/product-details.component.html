@@ -1,0 +1,77 @@
+<div class="grid-container" *ngIf="product">
+
+
+  <!-- Product image -->
+  <mat-grid-list [cols]="(isMobile$ |async) ? 1:2" [rowHeight]="(isMobile$ |async) ? '600px' : '250px'">
+
+    <!-- Product info -->
+    <mat-grid-tile [colspan]="1" [rowspan]="(isMobile$ |async) ? 1:2">
+      <mat-card class="product-card">
+        <mat-card-header>
+          <mat-card-title class="product-title">
+            {{product.name}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-subtitle class="product-barcode">
+          {{product?.barcode}}
+        </mat-card-subtitle>
+
+        <mat-card-content class="product-info-container">
+
+            <div class="product-info-row product-price" >{{ product?.price | currency:'EUR' }}</div>
+
+            <div class="product-info-row product-quantity">
+              <span class="product-info-title">Disponibile:</span>
+              <span class="product-info-value">{{ product?.quantity }}</span>
+            </div>
+
+            <div class="product-info-row product-category">
+              <span class="product-info-title">Categoria:</span>
+              <span class="product-info-value">{{ product?.category }}</span>
+            </div>
+
+            <div class="product-info-row product-brand">
+              <span class="product-info-title">Marca:</span>
+              <span class="product-info-value">{{ product?.brand }}</span>
+            </div>
+
+            <div class="product-info-row product-user">
+              <span class="product-info-title">Utente:</span>
+              <span class="product-info-value">{{product.user}}</span>
+            </div>
+
+            <div class="product-info-row product-buy" *ngIf="product.quantity">
+              <div class="product-add">
+                <input type="button" class="product-add-minus" value="-" (click)="remove()">
+                <input type="number" class="product-add-quantity" [(ngModel)]="quantity">
+                <input type="button" class="product-add-plus" value="+" (click)="add()">
+              </div>
+              <button mat-raised-button color="primary" (click)="addToCart()">Aggiungi al carrello</button>
+            </div>
+
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <!-- Description -->
+    <mat-grid-tile [colspan]="1" [rowspan]="(isMobile$ |async) ? 1:2">
+      <mat-card class="product-card">
+        <mat-card-content class="product-card-content">
+          <div class="product-card-description">
+            <span class="product-card-description-title">Descrizione</span>
+            <div class="product-card-description-text">
+              {{product.description}}
+            </div>
+          </div>
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+</div>

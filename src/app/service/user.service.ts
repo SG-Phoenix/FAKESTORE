@@ -1,3 +1,4 @@
+import { AuthService } from 'src/auth/service/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -14,13 +15,7 @@ export class UserService {
 
   private baseURL = environment.baseURL+"/users";
 
-  private user:User = {
-    id:1,
-    first_name:"Yevhenii",
-    last_name:"Sliusar",
-    username:"ShadowGek",
-    e_mail:"uawow2012@gmail.com"
-  }
+  private user?:User;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "http://localhost:4200"}
@@ -28,10 +23,89 @@ export class UserService {
   }
 
   constructor(private http:HttpClient,
-              private snackBar:MatSnackBar
+              private snackBar:MatSnackBar,
+              private authService:AuthService
     )
-  {}
+  {
+    this.authService.isLoggedIn().then(
+      status =>
+    {
+      if(status)
+      {
+          this.authService.loadUserProfile()
+          .then(
+            profile =>
+            {
+              this.getUserByUsername(profile.username || "")
+              .subscribe(
+                {
+                  next: user =>
+                  {
+                    console.log(user);
+                    this.setCurrentUser(user);
+                  },
+                  error: err =>
+                  {
+                    let user = {} as User;
+                    user.username = profile.username || "";
+                    user.e_mail = profile.email || "";
+                    user.first_name = profile.firstName;
+                    user.last_name = profile.lastName;
+                    this.createUser(user).subscribe(
+                      user =>
+                      {
+                        console.log(user);
+                        this.setCurrentUser(user);
+                      }
+                    )
+                  }
+                }
+              );
+            }
+          )
+      }
+    });
+  }
 
+  async getCurrentUser():Promise<User | undefined>
+  {
+    return new Promise((resolve, reject) =>
+    {
+
+      this.authService.loadUserProfile()
+      .then(
+          userProfile =>
+          {
+            this.getUserByUsername(userProfile.username ||"")
+            .subscribe(
+              {
+                next:foundUser =>
+                {
+                  resolve(foundUser);
+                },
+                error: err =>
+                {
+                  resolve(undefined);
+                }
+              }
+            );
+          }
+      )
+      .catch(
+        err =>
+        {
+          resolve(undefined);
+        }
+      );
+
+    });
+
+  }
+
+  setCurrentUser(user:User):void
+  {
+    this.user = user;
+  }
 
 
   getUsers(): Observable<User[]> {
@@ -42,21 +116,34 @@ export class UserService {
     return this.http.get<User>(`${this.baseURL}/by-id/${id}`);
   }
 
+  getUserByUsername(username:string): Observable<User> {
+    return this.http.get<User>(`${this.baseURL}/by-username/${username}`);
+  }
 
+
+  createUser(user:User): Observable<User> {
+    return this.http.post<User>(this.baseURL, user, this.httpOptions);
+  }
 
   updateUser(user:User): Observable<User> {
-    return this.http.put<User>(this.baseURL, user, this.httpOptions);
+    return this.http.put<User>(this.baseURL, user, this.httpOptions)
+    .pipe(
+      tap(
+        address =>
+        {
+          this.openSnackBar("Utente aggiornato!", "snackbar-success");
+          return address;
+        }
+      ),
+      catchError(err =>
+        {
+          this.openSnackBar("Email già usata!", "snackbar-error");
+          throw err
+        })
+    );
   }
 
-  getCurrentUser():User
-  {
-      return this.user;
-  }
 
-  setCurrentUser(user:User):void
-  {
-    this.user = user;
-  }
 
   openSnackBar(message:string, cssClass:string)
   {

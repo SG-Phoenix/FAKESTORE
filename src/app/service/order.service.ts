@@ -40,7 +40,12 @@ export class OrderService implements OnInit {
               private snackBar:MatSnackBar
 
     ) {
-    this.shopping_cart  = new Map<Number, ShoppingCartProduct>();
+
+
+    if(localStorage['cart'])
+      this.shopping_cart = new Map(JSON.parse(localStorage['cart']))
+    else
+      this.shopping_cart  = new Map<Number, ShoppingCartProduct>();
   }
 
   ngOnInit(): void {
@@ -66,7 +71,7 @@ export class OrderService implements OnInit {
 
 
     this.change.emit("added");
-    //localStorage.setItem("cart", JSON.stringify(this.shopping_cart));
+    this.updatePersistedShoppingCart();
   }
 
   removeFromCart(product:Product, quantity:number)
@@ -89,6 +94,7 @@ export class OrderService implements OnInit {
 
 
       this.change.emit("removed");
+      this.updatePersistedShoppingCart();
     }
   }
 
@@ -111,7 +117,20 @@ export class OrderService implements OnInit {
 
 
       this.change.emit("changed");
+      this.updatePersistedShoppingCart();
     }
+  }
+
+  updatePersistedShoppingCart()
+  {
+    localStorage["cart"] = JSON.stringify(Array.from(this.shopping_cart.entries()));
+  }
+
+  clearCart()
+  {
+    this.shopping_cart = new Map<Number,ShoppingCartProduct>();
+    this.change.emit("cleared cart");
+    localStorage.removeItem("cart");
   }
 
   getProductsCount():number
@@ -124,10 +143,6 @@ export class OrderService implements OnInit {
    return this.shopping_cart;
   }
 
-  clearCart():void
-  {
-    this.shopping_cart = new Map<Number, ShoppingCartProduct>();
-  }
 
   getUserOrders(userId:number, params:any):Observable<OrderPage>
   {
@@ -162,6 +177,7 @@ export class OrderService implements OnInit {
         order =>
         {
           this.openSnackBar("Ordine creato!", "snackbar-success");
+          this.clearCart();
           return order;
         }
       ),

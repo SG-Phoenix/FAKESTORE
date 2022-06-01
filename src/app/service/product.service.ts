@@ -54,13 +54,25 @@ export class ProductService {
 
   getCategories(): Observable<Category[]>
   {
-    return this.http.get<Category[]>(`${this.baseURL}/categories`,{headers: {"Access-Control-Allow-Origin": "http://localhost:4200"}});
+    return this.http.get<Category[]>(`${this.baseURL}/categories`,{headers: {"Access-Control-Allow-Origin": "*"}});
   }
 
   getFilteredProducts(queryParams:any): Observable<ProductPage>
   {
 
     return this.http.get<ProductPage>(`${this.baseURL}/advancedSearch/paged`, {params: queryParams});
+  }
+
+  getNewProducts(): Observable<ProductPage>
+  {
+
+    return this.http.get<ProductPage>(`${this.baseURL}/new`);
+  }
+
+  getRandomProducts(): Observable<ProductPage>
+  {
+
+    return this.http.get<ProductPage>(`${this.baseURL}/random`);
   }
 
 

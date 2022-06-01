@@ -8,7 +8,8 @@ export function initializer(keycloak: KeycloakService): () => Promise<boolean> {
       loadUserProfileAtStartUp: true,
       initOptions: {
           // onLoad: 'login-required',
-          checkLoginIframe: false
+          checkLoginIframe: false,
+          //onLoad: 'check-sso'
       },
       bearerExcludedUrls: []
     };
