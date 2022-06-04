@@ -10,9 +10,9 @@
           </div>
           <div class="product-card-buy" *ngIf="product.quantity && displayCartButtons">
             <div class="product-add">
-              <button color="primary" class="product-add-minus" style="width : 2em;" (click)="remove()">-</button>
+              <button color="primary" class="product-add-minus" (click)="remove()">-</button>
               <input type="number" class="product-add-quantity" [(ngModel)]="quantity" >
-              <button  color="primary" class="product-add-plus" style="width : 2em;" (click)="add()">+</button>
+              <button  color="primary" class="product-add-plus" (click)="add()">+</button>
             </div>
             <button mat-raised-button color="primary" (click)="addToCart()"><mat-icon>shopping_cart</mat-icon></button>
           </div>

@@ -1,3 +1,10 @@
+.main-navigation-content-container
+{
+  min-height: 80vh;
+  background-color: white;
+  padding: 0 10%;
+}
+
 .sidenav-container {
   height: 100%;
 }
