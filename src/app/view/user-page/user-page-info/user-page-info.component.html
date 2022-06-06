@@ -8,28 +8,28 @@
 
     <mat-form-field style="display:none">
       <mat-label>Id</mat-label>
-      <input matInput placeholder="pat@example.com" formControlName="id" id="id" readonly required>
+      <input matInput placeholder="pat@example.com" maxlength="255" formControlName="id" id="id" readonly required>
     </mat-form-field>
 
 
     <mat-form-field >
       <mat-label>Username</mat-label>
-      <input matInput placeholder="pat@example.com" formControlName="username" id="username" readonly required>
+      <input matInput placeholder="pat@example.com" maxlength="255" formControlName="username" id="username" readonly required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>E-mail</mat-label>
-      <input matInput placeholder="pat@example.com" formControlName="e_mail" id="e_mail" required [readonly]="!editable">
+      <input matInput placeholder="pat@example.com" maxlength="255" formControlName="e_mail" id="e_mail" required [readonly]="!editable">
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Nome</mat-label>
-      <input matInput placeholder="pat@example.com" formControlName="first_name" id="first_name" equired [readonly]="!editable">
+      <input matInput placeholder="pat@example.com" maxlength="255" formControlName="first_name" id="first_name" equired [readonly]="!editable">
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Cognome</mat-label>
-      <input matInput placeholder="pat@example.com" formControlName="last_name" id="last_name" required [readonly]="!editable">
+      <input matInput placeholder="pat@example.com" maxlength="255" formControlName="last_name" id="last_name" required [readonly]="!editable">
     </mat-form-field>
 
     <button *ngIf="editable" color="primary" mat-raised-button>

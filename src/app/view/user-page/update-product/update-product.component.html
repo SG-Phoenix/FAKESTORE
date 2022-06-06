@@ -7,33 +7,33 @@
 
     <mat-form-field style="display:none">
       <mat-label>User</mat-label>
-      <input matInput placeholder="100,00" formControlName="user" required>
+      <input matInput placeholder="" maxlength="50" formControlName="user" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Nome</mat-label>
-      <input matInput placeholder="Esempio" formControlName="name" required>
+      <input matInput placeholder="Esempio" maxlength="50" formControlName="name" required>
     </mat-form-field>
 
 
     <mat-form-field >
       <mat-label>Barcode</mat-label>
-      <input matInput placeholder="800000000" formControlName="barcode" required>
+      <input matInput placeholder="800000000" maxlength="20" formControlName="barcode" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Prezzo</mat-label>
-      <input matInput placeholder="100,00" formControlName="price" required>
+      <input matInput placeholder="100,00"  maxlength="12" formControlName="price" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Quantità</mat-label>
-      <input matInput placeholder="1" formControlName="quantity" required>
+      <input matInput placeholder="1" maxlength="11" formControlName="quantity" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Brand</mat-label>
-      <input matInput placeholder="Dell" formControlName="brand">
+      <input matInput placeholder="Dell" maxlength="50" formControlName="brand">
     </mat-form-field>
 
     <mat-form-field>
@@ -45,7 +45,7 @@
 
     <mat-form-field>
       <mat-label>Descrizione</mat-label>
-      <textarea matInput placeholder="Lorem ipsum..." formControlName="description"></textarea>
+      <textarea matInput placeholder="Lorem ipsum..." rows="5" maxlength="1000" formControlName="description"></textarea>
     </mat-form-field>
 
 

@@ -7,28 +7,28 @@
 
     <mat-form-field>
       <mat-label>Titolo</mat-label>
-      <input matInput placeholder="Casa" formControlName="title" required>
+      <input matInput placeholder="Casa" maxlength="20" formControlName="title" required>
     </mat-form-field>
 
 
     <mat-form-field >
       <mat-label>Città</mat-label>
-      <input matInput placeholder="Roma" formControlName="city" required>
+      <input matInput placeholder="Roma" maxlength="50" formControlName="city" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Via</mat-label>
-      <input matInput placeholder="via Nazionale" formControlName="street" required>
+      <input matInput placeholder="via Nazionale" maxlength="50" formControlName="street" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>CAP</mat-label>
-      <input matInput placeholder="00100" formControlName="postalCode" required>
+      <input matInput placeholder="00100" maxlength="10" formControlName="postalCode" required>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Nazione</mat-label>
-      <input matInput placeholder="Italia" formControlName="country" required>
+      <input matInput placeholder="Italia" maxlength="50" formControlName="country" required>
     </mat-form-field>
 
     <button [disabled]="!addressForm.valid" color="primary" mat-raised-button>

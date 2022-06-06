@@ -21,7 +21,7 @@
         <div class="selling-card-product-info">
           <div class="selling-card-product">
             <span class="selling-card-product-title">Prodotto</span>
-            <span class="selling-card-product-name" routerLink="/user/products/deatails/{{selling.product.id}}">{{selling.product.name}}</span>
+            <span class="selling-card-product-name" routerLink="/user/products/{{selling.product.id}}">{{selling.product.name}}</span>
             <span>Prezzo di acquisto: {{selling.purchasePrice | currency:'EUR'}}</span>
             <span>Quantità: {{selling.quantity}}</span>
           </div>

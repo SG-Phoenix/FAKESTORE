@@ -57,3 +57,8 @@
   color: white;
   height:36px;
 }
+
+::ng-deep .mat-raised-button
+{
+  min-width: 32px;
+}
